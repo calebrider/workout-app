@@ -46,7 +46,7 @@ export async function fetchWorkouts() {
 export async function fetchWorkoutsByUserId(user_id: string) {
   try {
     const data = await sql<WorkoutDisplay>`
-      SELECT workouts.id, workouts.title, workouts.description, TO_CHAR(workouts.date :: DATE, 'Mon dd, yyyy')
+      SELECT workouts.id, workouts.title, workouts.description, workouts.date
       FROM workouts
       WHERE workouts.user_id = ${user_id}
       ORDER BY date DESC
@@ -59,4 +59,37 @@ export async function fetchWorkoutsByUserId(user_id: string) {
     console.error('Database Error: ', error);
     throw new Error('Failed to fetch workouts.');
   }
+}
+
+// export async function deleteWorkoutById(id: string) {
+//   try {
+//     console.log("DELETE " + id)
+//     const pool = createPool({
+//       connectionString: process.env.POSTGRES_URL
+//     });
+//     const result = await pool.sql`
+//       DELETE FROM workouts
+//       WHERE workouts.id = ${id}
+//     `;
+//     return result
+//   } catch (error) {
+//     console.error('Database Error: ', error);
+//     throw new Error('Failed to fetch all workouts.')
+//   }
+// }
+
+export async function deleteWorkoutById(id: string) {
+  try {
+    console.log("DELETE " + id)
+    const data = await sql<Workout>`
+      DELETE FROM workouts
+      WHERE workouts.id = ${id}
+    `;
+    
+    return data
+  } catch (error) {
+    console.error('Database Error: ', error);
+    throw new Error('Failed to fetch all workouts.')
+  }
+
 }

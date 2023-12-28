@@ -1,4 +1,3 @@
-import Top from './components/top/page'
 import Display from './components/display/page'
 import Navbar from './components/navbar/page'
 import type { Metadata } from 'next'
