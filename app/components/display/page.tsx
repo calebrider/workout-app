@@ -1,14 +1,15 @@
+"use client"
+
 import EditWorkout from "../edit-workout/page";
+import Modal from "../modal/page";
 import Table from "../table/page";
 import { fetchWorkouts } from "@/app/lib/data";
+import { useState } from "react";
 
-export default async function Display() {
-    const workouts = await fetchWorkouts();
-
+export default function Display() {
     return (
-      <div className="fixed flex top-20 bottom-10 justify-center w-full rounded-md overflow-auto">
+      <div className="fixed flex flex-col top-20 bottom-10 justify-center rounded-md overflow-auto">
         <Table/>
-        {/* <EditWorkout/> */}
       </div>
     )
   }

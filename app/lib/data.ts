@@ -29,7 +29,7 @@ export async function fetchUser(email: string) {
 export async function fetchWorkouts() {
   try {
     const data = await sql<Workout>`
-      SELECT workouts.id, workouts.title, workouts.description, TO_CHAR(workouts.date :: DATE, 'Mon dd, yyyy')
+      SELECT workouts.id, workouts.title, workouts.description, TO_CHAR(workouts.date :: DATE, 'YYYY-MM-DD')
       FROM workouts
       ORDER BY date DESC
     `;
@@ -61,26 +61,23 @@ export async function fetchWorkoutsByUserId(user_id: string) {
   }
 }
 
-// export async function deleteWorkoutById(id: string) {
-//   try {
-//     console.log("DELETE " + id)
-//     const pool = createPool({
-//       connectionString: process.env.POSTGRES_URL
-//     });
-//     const result = await pool.sql`
-//       DELETE FROM workouts
-//       WHERE workouts.id = ${id}
-//     `;
-//     return result
-//   } catch (error) {
-//     console.error('Database Error: ', error);
-//     throw new Error('Failed to fetch all workouts.')
-//   }
-// }
+export async function upsertWorkout(workout: any) {
+  try {
+    const data = await sql<Workout>`
+    INSERT INTO workouts (Id, user_id, Title, Description, Date)
+    VALUES (${workout.id}, '34009fbc-4326-4821-980b-ff7e8bd23316', ${workout.title}, ${workout.description}, ${workout.to_char})
+    ON CONFLICT (Id)
+    DO
+      UPDATE SET Title=${workout.title}, Description=${workout.description};    
+    `;
+  } catch (error) {
+    console.error('Database Error: ', error)
+    throw new Error('Failed to upsert workout.')
+  }
+}
 
 export async function deleteWorkoutById(id: string) {
   try {
-    console.log("DELETE " + id)
     const data = await sql<Workout>`
       DELETE FROM workouts
       WHERE workouts.id = ${id}

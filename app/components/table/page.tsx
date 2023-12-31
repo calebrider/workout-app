@@ -1,19 +1,75 @@
 'use client'
 
 import { MdEdit, MdDelete } from "react-icons/md";
-import { deleteWorkoutById, fetchWorkouts } from "@/app/lib/data";
-import { useEffect, useState } from "react";
+import { deleteWorkoutById, upsertWorkout } from "@/app/lib/data";
+import { useState } from "react";
+import Modal from "../modal/page";
 
-export default function Table() {
-    const [workouts, setWorkouts] = useState<any[]>([])
+export default function Table(props: any) {
+    const [formState, setFormState] = useState({
+        id: "",
+        title: "",
+        description: "",
+        to_char: ""
+    })
 
-    useEffect(() => {
-        fetchWorkouts()
-        .then((newWorkouts) => setWorkouts(newWorkouts))
-    }, [])
+    const handleChange = (e: any) => {
+        setFormState({
+            ...formState,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    async function handleSubmit(e: any) {
+        e.preventDefault();
+        const workoutToEditIndex = props.workouts.findIndex((workout: any) => workout.id === formState.id)
+
+        if (workoutToEditIndex !== -1) {
+            props.workouts[workoutToEditIndex] = formState
+        } else {
+            formState.id = crypto.randomUUID()
+            props.workouts.unshift(formState)
+        }
+
+        props.closeModal()
+        await upsertWorkout(formState)
+        setFormState({
+            id: "",
+            title: "",
+            description: "",
+            to_char: ""
+        })
+    }
+
+    function addModal() {
+        formState.id = ""
+        formState.title = ""
+        formState.description = ""
+
+        let today = new Date().toISOString().slice(0, 10)
+        formState.to_char = today
+
+        props.openModal()
+    }
+
+    async function editModal(workout: any) {
+        formState.id = workout.id
+        formState.title = workout.title
+        formState.description = workout.description
+        formState.to_char = workout.to_char
+
+        props.openModal()
+    }
+
+    async function handleDelete(workoutId: any, workouts: any[]) {
+        await deleteWorkoutById(workoutId)
+        const newWorkouts = workouts.filter((li: any) => li.id !== workoutId)
+        props.setWorkouts(newWorkouts)
+    }
 
     return (
-    <table className="w-full text-xs text-left mx-8 my-4 table-auto border-collapse rounded-md shadow-md overflow-hidden">
+        <>
+        <table className="text-xs text-left mx-8 my-4 table-auto border-collapse rounded-md shadow-md overflow-hidden">
         <caption className="p-4 text-lg font-semibold text-left text-white bg-blue-600">
             Workouts
             <p className="mt-1 text-sm font-normal text-white">View your workout history in the table below.</p>
@@ -27,14 +83,16 @@ export default function Table() {
         </tr>
         </thead>
         <tbody>
-        {(workouts ?? []).map((workout: any) => (
+            {(props.workouts ?? []).map((workout: any) => (
             <tr key={workout.id} className="odd:bg-blue-500 even:bg-blue-600 hover:bg-blue-300 text-white">
                 <td className="border-t-2 border-blue-200 pl-4">{workout.title}</td>
                 <td className="border-t-2 border-blue-200 pl-4">{workout.description}</td>
                 <td className="border-t-2 border-blue-200 pl-4">{workout.to_char}</td>
                 <td className="border-t-2 border-blue-200 px-4">
-                    <MdEdit/>
-                    <button onClick={() => handleDelete(workout.id, workouts)}>
+                    <button onClick={() => editModal(workout)}>
+                        <MdEdit/>
+                    </button>
+                    <button onClick={() => handleDelete(workout.id, props.workouts)}>
                         <MdDelete/>
                     </button>
                 </td>
@@ -42,11 +100,10 @@ export default function Table() {
         ))}
         </tbody>
     </table>
+    <button className="bg-blue-500 text-white py-2 px-4 rounded-md mx-auto" onClick={addModal}>
+        Add
+    </button>
+    {props.modalOpen && (<Modal closeModal={props.closeModal} onSubmit={handleSubmit} workouts={props.workouts} setWorkouts={props.setWorkouts} formState={formState} setFormState={setFormState} handleChange={handleChange} handleSubmit={handleSubmit}/>)}
+    </>
     )
-
-    async function handleDelete(workoutId: any, workouts: any[]) {
-        await deleteWorkoutById(workoutId)
-        const newWorkouts = workouts.filter((li: any) => li.id !== workoutId)
-        setWorkouts(newWorkouts)
-    }
   }
