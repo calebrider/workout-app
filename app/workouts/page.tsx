@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { fetchWorkouts } from "../lib/data"
-import Table from "../components/table/page"
+import Table from "@/components/table/page"
 
 export default function Workouts() {
     const [workouts, setWorkouts] = useState<any[]>([])    

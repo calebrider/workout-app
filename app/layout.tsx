@@ -1,5 +1,4 @@
-import Display from './components/display/page'
-import Navbar from './components/navbar/page'
+import Navbar from '@/components/navbar/page'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'

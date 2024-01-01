@@ -3,6 +3,12 @@
 import { AiTwotoneCloseCircle } from "react-icons/ai";
 
 export default function Modal (props: any) {
+    console.log("FORM STATE: ")
+    console.log(props.formState)
+    // props.formState.title = ""
+    // props.formState.description = ""
+    // props.formState.to_char = ""
+
     return (
       <>
         <div id="modal-container" className="fixed flex justify-center items-center w-full h-full z-1 bg-black/30">
@@ -32,4 +38,3 @@ export default function Modal (props: any) {
       </>
     )
   }
-  

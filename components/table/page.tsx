@@ -6,11 +6,11 @@ import { useState } from "react";
 import Modal from "../modal/page";
 
 export default function Table(props: any) {
-    const [formState, setFormState] = useState({
-        id: "",
-        title: "",
-        description: "",
-        to_char: ""
+    const [formState, setFormState] = useState<{id: any, title: any, description: any, to_char: any}>({
+        id: null,
+        title: null,
+        description: null,
+        to_char: null
     })
 
     const handleChange = (e: any) => {
@@ -34,17 +34,17 @@ export default function Table(props: any) {
         props.closeModal()
         await upsertWorkout(formState)
         setFormState({
-            id: "",
-            title: "",
-            description: "",
-            to_char: ""
+            id: null,
+            title: null,
+            description: null,
+            to_char: null
         })
     }
 
     function addModal() {
-        formState.id = ""
-        formState.title = ""
-        formState.description = ""
+        formState.id = null
+        formState.title = null
+        formState.description = null
 
         let today = new Date().toISOString().slice(0, 10)
         formState.to_char = today
