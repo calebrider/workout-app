@@ -4,26 +4,22 @@ const users = [
 {
     id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
     name: 'Bob Smith',
-    email: 'bob@smith.com',
-    password: '123456'
+    email: 'bob@smith.com'
 },
 {
     id: '3958dc9e-742f-4377-85e9-fec4b6a6442a',
     name: 'Joe Shmoe',
-    email: 'joe@shmoe.com',
-    password: 'abcdef'
+    email: 'joe@shmoe.com'
 },
 {
     id: '3958dc9e-737f-4377-85e9-fec4b6a6442a',
     name: 'Gertrude Taylor',
-    email: 'gertrude@taylor.com',
-    password: 'password'
+    email: 'gertrude@taylor.com'
 },
 {
     id: '50ca3e18-62cd-11ee-8c99-0242ac120002',
     name: 'Deborah White',
-    email: 'deborah@white.com',
-    password: 'pass'
+    email: 'deborah@white.com'
 }
 ];
 

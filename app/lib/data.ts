@@ -26,6 +26,21 @@ export async function fetchUser(email: string) {
   }
 }
 
+export async function upsertUser(id: string, name: string | null | undefined, email: string | null | undefined) {
+  try {
+    const data = await sql<Workout>`
+    INSERT INTO users (Id, Name, Email)
+    VALUES (${id}, ${name}, ${email})
+    ON CONFLICT (Id)
+    DO
+      UPDATE SET Name=${name};    
+    `;
+  } catch (error) {
+    console.error('Database Error: ', error)
+    throw new Error('Failed to upsert user.')
+  }
+}
+
 export async function fetchWorkouts() {
   try {
     const data = await sql<Workout>`

@@ -12,10 +12,9 @@ async function seedUsers(client) {
     // Create the "users" table if it doesn't exist
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS users (
-        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        id TEXT NOT NULL UNIQUE,
         name VARCHAR(255) NOT NULL,
-        email TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL
+        email TEXT NOT NULL UNIQUE
       );
     `;
 
@@ -24,10 +23,9 @@ async function seedUsers(client) {
     // Insert data into the "users" table
     const insertedUsers = await Promise.all(
       users.map(async (user) => {
-        const hashedPassword = await bcrypt.hash(user.password, 10);
         return client.sql`
-        INSERT INTO users (id, name, email, password)
-        VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword})
+        INSERT INTO users (id, name, email)
+        VALUES (${user.id}, ${user.name}, ${user.email})
         ON CONFLICT (id) DO NOTHING;
       `;
       }),
