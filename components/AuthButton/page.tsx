@@ -30,10 +30,10 @@ export default function AuthButton() {
         </div>
         )
     }
+    
     return (
         <>
-        Not signed in <br />
-        <button className="h-full w-40 text-white hover:text-blue-600 hover:bg-white" onClick={() => signIn()}>Sign In</button>
+        <button className="h-full w-40 text-white hover:text-blue-600 hover:bg-white" onClick={() => signIn("google")}>Sign In</button>
         </>
     )
 }
