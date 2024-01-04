@@ -10,7 +10,7 @@ export default function AuthButton() {
 
     if (session) {
         return(
-        <div className="flex w-40 justify-center">
+        <div className="flex pr-16 justify-center">
             <div className="w-14 rounded-full overflow-auto shadow-md cursor-pointer" onClick={() => setIsProfileOpen(!isProfileOpen)}>
                 <Image
                     src={session?.user?.image?.toString() ?? "public\next.svg"}

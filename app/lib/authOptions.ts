@@ -9,7 +9,8 @@ export const authOptions: AuthOptions = {
     providers: [
         Google({
             clientId: process.env.GOOGLE_ID ?? "",
-            clientSecret: process.env.GOOGLE_SECRET ?? ""
+            clientSecret: process.env.GOOGLE_SECRET ?? "",
+            checks: ['none'] // fixes next-auth 'State cookie was missing.' bug when navigating back after sign in
         })
     ],
     callbacks: {
