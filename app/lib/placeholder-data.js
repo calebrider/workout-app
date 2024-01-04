@@ -2,60 +2,55 @@
 // https://nextjs.org/learn/dashboard-app/fetching-data 
 const users = [
 {
-    id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
-    name: 'Bob Smith',
-    email: 'bob@smith.com'
+    email: 'bob@smith.com',
+    name: 'Bob Smith'
 },
 {
-    id: '3958dc9e-742f-4377-85e9-fec4b6a6442a',
-    name: 'Joe Shmoe',
-    email: 'joe@shmoe.com'
+    email: 'joe@shmoe.com',
+    name: 'Joe Shmoe'
 },
 {
-    id: '3958dc9e-737f-4377-85e9-fec4b6a6442a',
-    name: 'Gertrude Taylor',
-    email: 'gertrude@taylor.com'
+    email: 'gertrude@taylor.com',
+    name: 'Gertrude Taylor'
 },
 {
-    id: '50ca3e18-62cd-11ee-8c99-0242ac120002',
-    name: 'Deborah White',
-    email: 'deborah@white.com'
+    email: 'deborah@white.com',
+    name: 'Deborah White'
 }
 ];
 
 const workouts = [
 {
-    user_id: users[0].id,
+    user_email: users[0].email,
     title: "Leg Day",
     description: 'Squats: 3x10 @ 405 lbs',
     date: '2022-12-06',
 },
 {
-    user_id: users[1].id,
+    user_email: users[1].email,
     title: "Push Day",
     description: 'Bench: 3x6 245 lbs',
     date: '2022-11-14',
 },
 {
-    user_id: users[2].id,
+    user_email: users[2].email,
     title: "Pull Day",
     description: 'Pull ups: 3x15',
     date: '2022-10-29',
 },
 {
-    user_id: users[3].id,
+    user_email: users[3].email,
     title: "Run",
     description: '1 mile in 4:30',
     date: '2023-09-10',
 },
 {
-    user_id: users[0].id,
+    user_email: users[0].email,
     title: "Sprint Endurance",
     description: '3x400m @ 52s, 54s, 56s',
     date: '2023-09-10',
 }
 ];
-
 
 module.exports = {
     users,

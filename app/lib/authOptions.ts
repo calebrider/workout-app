@@ -21,7 +21,7 @@ export const authOptions: AuthOptions = {
         },
         async jwt({ token, account, user }) {
             if (account) {
-                upsertUser(user.id, user.name, user.email)
+                upsertUser(user.email, user.name)
             }
             return token
         }

@@ -1,15 +1,18 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { fetchWorkouts } from "../lib/data"
+import { fetchWorkouts, fetchWorkoutsByUser } from "../lib/data"
 import Table from "@/components/table/page"
+import { useSession } from "next-auth/react"
 
 export default function Workouts() {
     const [workouts, setWorkouts] = useState<any[]>([])    
     const [modalOpen, setModalOpen] = useState(false)
+    const { data: session } = useSession();
 
     useEffect(() => {
-        fetchWorkouts()
+        // fetchWorkouts()
+        fetchWorkoutsByUser(session?.user?.email)
         .then((newWorkouts) => setWorkouts(newWorkouts))
     }, [])
 

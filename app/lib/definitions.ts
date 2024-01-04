@@ -3,9 +3,8 @@
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
 export type User = {
-    id: string;
-    name: string;
     email: string;
+    name: string;
 };
 
 export type UserDisplay = {
@@ -13,7 +12,7 @@ export type UserDisplay = {
 }
 
 export type Workout = {
-    user_id: string;
+    user_email: string;
     title: string;
     description: string;
     date: string;

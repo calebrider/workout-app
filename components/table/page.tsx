@@ -4,8 +4,11 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { deleteWorkoutById, upsertWorkout } from "@/app/lib/data";
 import { useState } from "react";
 import Modal from "../modal/page";
+import { useSession } from "next-auth/react";
 
 export default function Table(props: any) {
+    const { data: session } = useSession();
+    
     const [formState, setFormState] = useState<{id: any, title: any, description: any, to_char: any}>({
         id: null,
         title: null,
@@ -32,7 +35,7 @@ export default function Table(props: any) {
         }
 
         props.closeModal()
-        await upsertWorkout(formState)
+        await upsertWorkout(formState, session?.user?.email)
         setFormState({
             id: null,
             title: null,
