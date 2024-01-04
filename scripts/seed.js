@@ -12,9 +12,8 @@ async function seedUsers(client) {
     // Create the "users" table if it doesn't exist
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS users (
-        id TEXT NOT NULL UNIQUE,
-        name VARCHAR(255) NOT NULL,
-        email TEXT NOT NULL UNIQUE
+        email TEXT NOT NULL UNIQUE,
+        name VARCHAR(255) NOT NULL
       );
     `;
 
@@ -24,9 +23,9 @@ async function seedUsers(client) {
     const insertedUsers = await Promise.all(
       users.map(async (user) => {
         return client.sql`
-        INSERT INTO users (id, name, email)
-        VALUES (${user.id}, ${user.name}, ${user.email})
-        ON CONFLICT (id) DO NOTHING;
+        INSERT INTO users (email, name)
+        VALUES (${user.email}, ${user.name})
+        ON CONFLICT (email) DO NOTHING;
       `;
       }),
     );
@@ -52,7 +51,7 @@ async function seedWorkouts(client) {
       const createTable = await client.sql`
         CREATE TABLE IF NOT EXISTS workouts (
           id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-          user_id UUID NOT NULL,
+          user_email TEXT NOT NULL,
           title VARCHAR(255) NOT NULL,
           description TEXT NOT NULL,
           date DATE NOT NULL
@@ -65,9 +64,9 @@ async function seedWorkouts(client) {
       const insertedWorkouts = await Promise.all(
         workouts.map(async (workout) => {
           return client.sql`
-          INSERT INTO workouts (user_id, title, description, date)
-          VALUES (${workout.user_id}, ${workout.title}, ${workout.description}, ${workout.date})
-          ON CONFLICT (id) DO NOTHING;
+          INSERT INTO workouts (user_email, title, description, date)
+          VALUES (${workout.user_email}, ${workout.title}, ${workout.description}, ${workout.date})
+          ON CONFLICT (Id) DO NOTHING;
         `;
         }),
       );

@@ -26,12 +26,12 @@ export async function fetchUser(email: string) {
   }
 }
 
-export async function upsertUser(id: string, name: string | null | undefined, email: string | null | undefined) {
+export async function upsertUser(email: string | null | undefined, name: string | null | undefined) {
   try {
     const data = await sql<Workout>`
-    INSERT INTO users (Id, Name, Email)
-    VALUES (${id}, ${name}, ${email})
-    ON CONFLICT (Id)
+    INSERT INTO users (Email, Name)
+    VALUES (${email}, ${name})
+    ON CONFLICT (Email)
     DO
       UPDATE SET Name=${name};    
     `;
@@ -58,12 +58,12 @@ export async function fetchWorkouts() {
   }
 }
 
-export async function fetchWorkoutsByUserId(user_id: string) {
+export async function fetchWorkoutsByUser(userEmail: string | null | undefined) {
   try {
     const data = await sql<WorkoutDisplay>`
       SELECT workouts.id, workouts.title, workouts.description, workouts.date
       FROM workouts
-      WHERE workouts.user_id = ${user_id}
+      WHERE workouts.user_email = ${userEmail}
       ORDER BY date DESC
     `;
 
@@ -76,11 +76,11 @@ export async function fetchWorkoutsByUserId(user_id: string) {
   }
 }
 
-export async function upsertWorkout(workout: any) {
+export async function upsertWorkout(workout: any, userEmail: string | null | undefined) {
   try {
     const data = await sql<Workout>`
-    INSERT INTO workouts (Id, user_id, Title, Description, Date)
-    VALUES (${workout.id}, '34009fbc-4326-4821-980b-ff7e8bd23316', ${workout.title}, ${workout.description}, ${workout.to_char})
+    INSERT INTO workouts (Id, user_email, Title, Description, Date)
+    VALUES (${workout.id}, ${userEmail}, ${workout.title}, ${workout.description}, ${workout.to_char})
     ON CONFLICT (Id)
     DO
       UPDATE SET Title=${workout.title}, Description=${workout.description};    
