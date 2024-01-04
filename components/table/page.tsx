@@ -72,41 +72,50 @@ export default function Table(props: any) {
 
     return (
         <>
-        <table className="text-xs text-left mx-8 my-4 table-auto border-collapse rounded-md shadow-md overflow-hidden">
-        <caption className="p-4 text-lg font-semibold text-left text-white bg-blue-600">
-            Workouts
-            <p className="mt-1 text-sm font-normal text-white">View your workout history in the table below.</p>
-        </caption>
-        <thead>
-        <tr className="bg-blue-600 text-white">
-            <th className="border-y-2 border-blue-200 pl-4 py-4">Title</th>
-            <th className="border-y-2 border-blue-200 pl-4 py-4">Description</th>
-            <th className="border-y-2 border-blue-200 pl-4 py-4">Date</th>
-            <th className="border-y-2 border-blue-200 px-4 py-4">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-            {(props.workouts ?? []).map((workout: any) => (
-            <tr key={workout.id} className="odd:bg-blue-500 even:bg-blue-600 hover:bg-blue-300 text-white">
-                <td className="border-t-2 border-blue-200 pl-4">{workout.title}</td>
-                <td className="border-t-2 border-blue-200 pl-4">{workout.description}</td>
-                <td className="border-t-2 border-blue-200 pl-4">{workout.to_char}</td>
-                <td className="border-t-2 border-blue-200 px-4">
-                    <button onClick={() => editModal(workout)}>
-                        <MdEdit/>
-                    </button>
-                    <button onClick={() => handleDelete(workout.id, props.workouts)}>
-                        <MdDelete/>
-                    </button>
-                </td>
-            </tr>
-        ))}
-        </tbody>
-    </table>
-    <button className="bg-blue-500 text-white py-2 px-4 rounded-md mx-auto" onClick={addModal}>
-        Add
-    </button>
-    {props.modalOpen && (<Modal closeModal={props.closeModal} onSubmit={handleSubmit} workouts={props.workouts} setWorkouts={props.setWorkouts} formState={formState} setFormState={setFormState} handleChange={handleChange} handleSubmit={handleSubmit}/>)}
+            <div className="flex m-auto mt-12 mb-6 shadow-md border-1 rounded-md overflow-hidden">
+                <table className="text-xs table-auto mx-auto border-collapse rounded-md shadow-xl">
+                    <caption className="py-5 bg-white">
+                        <div className="flex flex-row justify-between w-full">
+                            <h1 className="mx-8 text-4xl font-semibold text-gray-700">Workouts</h1>
+                            <button className="mx-8 bg-white font-semibold text-blue-600 hover:bg-blue-600 hover:text-white border-2 border-blue-600 py-2 px-6 rounded-lg" onClick={addModal}>
+                                Add Workout
+                            </button>
+                        </div>
+                    </caption>
+                    <thead>
+                    <tr className="bg-blue-600 text-white text-left text-sm border-y-2 border-blue-600">
+                        <th className="pl-8 py-4">Title</th>
+                        <th className="pl-8 py-4">Description</th>
+                        <th className="pl-8 py-4">Date</th>
+                        <th className="px-8 py-4">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {(props.workouts ?? []).map((workout: any) => (
+                        <tr key={workout.id} className="bg-white text-gray-800 text-sm mx-2 border-t-2 border-gray-200">
+                            <td className="pl-8">{workout.title}</td>
+                            <td className="pl-8">{workout.description}</td>
+                            <td className="pl-8">{workout.to_char}</td>
+                            <td className="pl-8 py-2">
+                                <button onClick={() => editModal(workout)}>
+                                    <MdEdit
+                                        color='#32CD32'
+                                        size={20}
+                                    />
+                                </button>
+                                <button className="ml-1" onClick={() => handleDelete(workout.id, props.workouts)}>
+                                    <MdDelete
+                                        color='#FF033E'
+                                        size={20}
+                                    />
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+        </div>
+        {props.modalOpen && (<Modal closeModal={props.closeModal} onSubmit={handleSubmit} workouts={props.workouts} setWorkouts={props.setWorkouts} formState={formState} setFormState={setFormState} handleChange={handleChange} handleSubmit={handleSubmit}/>)}
     </>
     )
   }
