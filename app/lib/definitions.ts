@@ -15,11 +15,11 @@ export type Workout = {
     user_email: string;
     title: string;
     description: string;
-    date: string;
+    date: Date;
 }
 
 export type WorkoutDisplay = {
     title: string;
     description: string;
-    date: string;
+    date: Date;
 }

@@ -3,12 +3,6 @@
 import { AiTwotoneCloseCircle } from "react-icons/ai";
 
 export default function Modal (props: any) {
-    console.log("FORM STATE: ")
-    console.log(props.formState)
-    // props.formState.title = ""
-    // props.formState.description = ""
-    // props.formState.to_char = ""
-
     return (
       <>
         <div id="modal-container" className="fixed flex justify-center items-center w-full h-full z-1 bg-black/30">
@@ -27,8 +21,8 @@ export default function Modal (props: any) {
                             <textarea name="description" defaultValue={props.formState.description} onChange={props.handleChange} className="border-solid border-2 rounded-md border-blue-200 mb-4"></textarea>
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="to_char">Date</label>
-                            <input name="to_char" type="date" defaultValue={props.formState.to_char} onChange={props.handleChange} className="border-solid border-2 rounded-md border-blue-200 mb-8"></input>
+                            <label htmlFor="date">Date</label>
+                            <input name="date" type="date" defaultValue={props.formState.date} onChange={props.handleChange} className="border-solid border-2 rounded-md border-blue-200 mb-8"></input>
                         </div>
                         <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md mx-auto" onClick={props.handleSubmit}>Submit</button>
                     </form>
