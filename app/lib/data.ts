@@ -50,7 +50,6 @@ export async function fetchWorkouts() {
     `;
 
     const workouts = data.rows;
-    console.log(workouts)
     return workouts;
   } catch (error) {
     console.error('Database Error: ', error);
@@ -80,7 +79,7 @@ export async function upsertWorkout(workout: any, userEmail: string | null | und
   try {
     const data = await sql<Workout>`
     INSERT INTO workouts (Id, user_email, Title, Description, Date)
-    VALUES (${workout.id}, ${userEmail}, ${workout.title}, ${workout.description}, ${workout.to_char})
+    VALUES (${workout.id}, ${userEmail}, ${workout.title}, ${workout.description}, ${workout.date})
     ON CONFLICT (Id)
     DO
       UPDATE SET Title=${workout.title}, Description=${workout.description};    

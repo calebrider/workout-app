@@ -9,11 +9,11 @@ import { useSession } from "next-auth/react";
 export default function Table(props: any) {
     const { data: session } = useSession();
     
-    const [formState, setFormState] = useState<{id: any, title: any, description: any, to_char: any}>({
+    const [formState, setFormState] = useState<{id: string | null, title: string | null, description: string | null, date: string | null}>({
         id: null,
         title: null,
         description: null,
-        to_char: null
+        date: null
     })
 
     const handleChange = (e: any) => {
@@ -40,7 +40,7 @@ export default function Table(props: any) {
             id: null,
             title: null,
             description: null,
-            to_char: null
+            date: null
         })
     }
 
@@ -50,7 +50,7 @@ export default function Table(props: any) {
         formState.description = null
 
         let today = new Date().toISOString().slice(0, 10)
-        formState.to_char = today
+        formState.date = today
 
         props.openModal()
     }
@@ -59,7 +59,7 @@ export default function Table(props: any) {
         formState.id = workout.id
         formState.title = workout.title
         formState.description = workout.description
-        formState.to_char = workout.to_char
+        formState.date = new Date(workout.date).toISOString().slice(0, 10)
 
         props.openModal()
     }
@@ -95,7 +95,7 @@ export default function Table(props: any) {
                         <tr key={workout.id} className="bg-white text-gray-800 text-sm mx-2 border-t-2 border-gray-200">
                             <td className="pl-8">{workout.title}</td>
                             <td className="pl-8">{workout.description}</td>
-                            <td className="pl-8">{workout.to_char}</td>
+                            <td className="pl-8">{new Date(workout.date).toISOString().slice(0, 10)}</td>
                             <td className="pl-8 py-2">
                                 <button onClick={() => editModal(workout)}>
                                     <MdEdit
