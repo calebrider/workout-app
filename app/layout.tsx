@@ -20,7 +20,7 @@ export default async function RootLayout({
   const session = await getServerSession();
 
   return (
-    <html lang="en" className="scroll-smooth bg-gray-100">
+    <html lang="en" className="scroll-smooth bg-gray-100 dark:bg-neutral-950">
       <body className={`${inter.className} flex flex-col max-w-screen min-h-screen`}>
         <SessionProvider session={session}>
           <main>

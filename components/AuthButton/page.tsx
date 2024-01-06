@@ -21,10 +21,10 @@ export default function AuthButton() {
                 />
             </div>
             {isProfileOpen &&
-            <div className="fixed top-20 right-0 flex flex-col bg-blue-600 text-white justify-center p-4 items-center shadow-lg rounded-b-md z-10">
-                <span className="text-md">Hi {session?.user?.name?.split(" ")[0]}!</span>
-                <span className="text-xs ">{session?.user?.email}</span>
-                <button className="flex w-full justify-center items-center text-white hover:text-blue-600 bg-blue-600 hover:bg-white border-2 border-white rounded-md py-1 mt-4" onClick={() => signOut()}>Sign Out</button>
+            <div className="fixed flex flex-col h-fit min-w-[184px] max-w-full w-min text-wrap top-20 right-0 bg-blue-600 dark:bg-neutral-800 text-white text-center px-4 items-center shadow-lg rounded-b-md z-10">
+                <p className="text-md pt-2">Hi, {session?.user?.name?.split(" ")[0]}!</p>
+                <p className="text-xs">{session?.user?.email}</p>
+                <button className="text-white hover:text-blue-600 dark:hover:text-white bg-blue-600 hover:bg-white dark:text-white dark:bg-blue-600 dark:hover:bg-blue-700 dark:hover:border-blue-700 dark:border-blue-600 border-2 border-white rounded-md py-1 px-4 mx-auto my-4" onClick={() => signOut()}>Sign Out</button>
             </div>
             }
         </div>
@@ -33,7 +33,7 @@ export default function AuthButton() {
     
     return (
         <>
-        <button className="h-full w-40 text-white hover:text-blue-600 hover:bg-white" onClick={() => signIn("google")}>Sign In</button>
+        <button className="h-full w-40 text-white hover:text-blue-600 hover:bg-white dark:hover:text-white dark:hover:bg-neutral-900" onClick={() => signIn("google")}>Sign In</button>
         </>
     )
 }

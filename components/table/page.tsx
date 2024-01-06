@@ -72,27 +72,27 @@ export default function Table(props: any) {
 
     return (
         <>
-            <div className="flex m-auto mt-12 mb-6 shadow-md border-1 rounded-md overflow-hidden">
-                <table className="text-xs table-auto mx-auto border-collapse rounded-md shadow-xl">
-                    <caption className="py-5 bg-white">
+            <div className="flex min-w-[400px] m-auto mt-12 mb-6 shadow-md border-1 rounded-md overflow-hidden">
+                <table className="w-full table-auto text-xs border-collapse rounded-md shadow-xl">
+                    <caption className="py-5 bg-white dark:bg-neutral-800">
                         <div className="flex flex-row justify-between w-full">
-                            <h1 className="mx-8 text-4xl font-semibold text-gray-700">Workouts</h1>
-                            <button className="mx-8 bg-white font-semibold text-blue-600 hover:bg-blue-600 hover:text-white border-2 border-blue-600 py-2 px-6 rounded-lg" onClick={addModal}>
+                            <h1 className="mx-8 text-4xl font-semibold text-blue-600 dark:text-white">Workouts</h1>
+                            <button className="mr-8 bg-white font-semibold text-blue-600 hover:bg-blue-600 hover:text-white dark:text-white dark:bg-blue-600 dark:hover:bg-blue-700 dark:hover:border-blue-700 border-2 border-blue-600 py-2 px-6 rounded-lg" onClick={addModal}>
                                 Add Workout
                             </button>
                         </div>
                     </caption>
                     <thead>
-                    <tr className="bg-blue-600 text-white text-left text-sm border-y-2 border-blue-600">
+                    <tr className="bg-blue-600 text-white text-left text-sm border-y-2 border-blue-600 dark:bg-neutral-900 dark:border-neutral-950">
                         <th className="pl-8 py-4">Title</th>
                         <th className="pl-8 py-4">Description</th>
                         <th className="pl-8 py-4">Date</th>
-                        <th className="px-8 py-4">Action</th>
+                        <th className="px-8 py-4 w-0">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                         {(props.workouts ?? []).map((workout: any) => (
-                        <tr key={workout.id} className="bg-white text-gray-800 text-sm mx-2 border-t-2 border-gray-200">
+                        <tr key={workout.id} className="bg-white text-gray-800 text-sm mx-2 border-t-2 border-gray-200 dark:bg-neutral-800 dark:text-white dark:border-neutral-950">
                             <td className="pl-8">{workout.title}</td>
                             <td className="pl-8">{workout.description}</td>
                             <td className="pl-8">{new Date(workout.date).toISOString().slice(0, 10)}</td>
