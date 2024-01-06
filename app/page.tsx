@@ -11,7 +11,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col text-center w-4/5 mx-auto mt-40 gap-10">
-      <h1 className="text-4xl font-semibold text-gray-700">Welcome to the Workout App!</h1>
+      <h1 className="text-4xl font-semibold text-gray-700 dark:text-neutral-200">Welcome to the Workout App!</h1>
     </div>
   )
 }
