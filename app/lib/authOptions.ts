@@ -13,6 +13,7 @@ export const authOptions: AuthOptions = {
             checks: ['none'] // fixes next-auth 'State cookie was missing.' bug when navigating back after sign in
         })
     ],
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async signIn({ profile }) {
             if (!profile?.email) {
